@@ -63,7 +63,7 @@ int dist() {
     int distance = 9999;
     for(int j=0; j<chicken.size(); j++) {
       
-      //치킨집이 현재 벡터에 존재하는 조건인 visited[j]를 하지 않아 애먹었었다
+      //치킨집이 현재 벡터에 존재하는 조건인 visited[j]를 하지 않아 애먹었었다.
       if(visited[j]) {
       int r2 = chicken[j].y;
       int c2 = chicken[j].x;
@@ -93,7 +93,8 @@ void dfs(int idx, int cnt) {
     if(!visited[i]) {
       visited[i] = true;
       
-      //i+1을 하여 뒤를 돌아보지 않도록 한다
+      //조합이기 때문에 순서를 인정하지 않는다.
+      //i+1을 하여 뒤를 돌아보지 않도록 한다.
       dfs(i+1, cnt+1);
       visited[i] = false;
     }
