@@ -28,3 +28,5 @@
 첫째 줄에 얻을 수 있는 안전 영역의 최대 크기를 출력한다.
 
 <img width="1143" alt="스크린샷 2021-02-19 오후 1 56 30" src="https://user-images.githubusercontent.com/79130141/108459609-50cc9380-72ba-11eb-96ef-55a5fb81aa2c.png">
+
+## 풀이
