@@ -30,3 +30,4 @@
 <img width="1143" alt="스크린샷 2021-02-19 오후 1 56 30" src="https://user-images.githubusercontent.com/79130141/108459609-50cc9380-72ba-11eb-96ef-55a5fb81aa2c.png">
 
 ## 풀이
+벽이 세워질 수 있는 모든 경우의 수를 생각해야하는 브루트 포스 문제이다. 
