@@ -30,3 +30,87 @@
 첫째 줄에 폐업시키지 않을 치킨집을 최대 M개를 골랐을 때, 도시의 치킨 거리의 최솟값을 출력한다.
 
 <img width="1143" alt="스크린샷 2021-02-19 오후 12 03 44" src="https://user-images.githubusercontent.com/79130141/108451661-8ec1bb80-72aa-11eb-8793-ebd0507fd7a5.png">
+
+## 풀이 
+모든 경우의 수를 생각하는 **브루트 포스** 문제이다. '치킨집 중에서 최대 M개를 고르고, 나머지 치킨집은 모두 폐업시켜야 한다'에서 힌트를 얻었다. 치킨집의 개수에 따라 "치킨 거리"가 달라지기 때문에 백트래킹을 활용하여 문제를 해결하는것이 가장 효율적이다. 
+
+
+처음에는 치킨집이 최대 3개가 존재한다면 1개일때, 2개일때, 3개일때 모두 구해줘야한다고 생각했지만 쉽게 생각해보면 최대로 구했을때가 거리가 가장 작게 나올것이라는것을 예상 해볼 수 있다.
+
+
+따라서 순열 또는 조합을 이용하여 최대 M개 일때 거리를 계산해주면 된다. 하지만 이 문제에서는 각 치킨집의 위치만 같다면 순서에 상관없이 모두 같다고 보기 때문에 순열보다는 조합을 이용하는것이 효율적이다.
+
+## 포인트
+
+```c++
+//구조체 생성
+struct Position {
+  int y;
+  int x;
+};
+
+//벡터 생성
+vector<Position> chicken, house;
+
+//거리 구하기 
+int dist() {
+
+  int sum = 0;
+   
+  for(int i=0; i<house.size(); i++) {
+    int r1 = house[i].y;
+    int c1 = house[i].x;
+    int distance = 9999;
+    for(int j=0; j<chicken.size(); j++) {
+      
+      //치킨집이 현재 벡터에 존재하는 조건인 visited[j]를 하지 않아 애먹었었다
+      if(visited[j]) {
+      int r2 = chicken[j].y;
+      int c2 = chicken[j].x;
+      int temp = abs(r1-r2) + abs(c1-c2);
+      
+      //각 집으로 부터 떨어진 치킨집 거리 비교  
+      distance = min(distance,temp);
+      }
+    }
+    //치킨 거리의 합
+    sum += distance;
+  }
+  return sum;
+}
+
+//조합을 이용한 백트래킹
+void dfs(int idx, int cnt) {
+  
+  //치킨집이 최대 M개일때 최소거리 비교
+  //따라서 모든 치킨집의 경우의 수에 따라 가장 작은 치킨 거리를 구할 수 있다.
+  if(cnt == M) {
+    ans = min(ans,dist());
+    return;
+  }
+   
+  for(int i=idx; i<chicken.size(); i++) {
+    if(!visited[i]) {
+      visited[i] = true;
+      
+      //i+1을 하여 뒤를 돌아보지 않도록 한다
+      dfs(i+1, cnt+1);
+      visited[i] = false;
+    }
+  }
+}
+
+//집과 치킨집 각 좌표 넣어주기 
+for(int y=0; y<N; y++) {
+    for(int x=0; x<N; x++) {
+      cin >> Map[y][x];
+      if(Map[y][x]==1) {
+        house.push_back({y,x});
+      }
+      if(Map[y][x]==2) {
+        chicken.push_back({y,x});
+      }
+    }
+  }
+}
+```
