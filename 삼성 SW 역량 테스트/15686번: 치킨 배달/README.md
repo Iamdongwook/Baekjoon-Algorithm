@@ -28,3 +28,5 @@
 
 ## 출력 
 첫째 줄에 폐업시키지 않을 치킨집을 최대 M개를 골랐을 때, 도시의 치킨 거리의 최솟값을 출력한다.
+
+<img width="1143" alt="스크린샷 2021-02-19 오후 12 03 44" src="https://user-images.githubusercontent.com/79130141/108451661-8ec1bb80-72aa-11eb-8793-ebd0507fd7a5.png">
