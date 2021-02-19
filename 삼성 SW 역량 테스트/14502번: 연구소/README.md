@@ -39,4 +39,99 @@
 이후, 바이러스가 존재하지 않는 안전 영역의 크기를 구하면 된다. 
 
 ## 포인트
+```c++
+//좌 우 상 하
+int directX[] = {-1,1,0,0};
+int directY[] = {0,0,-1,1};
 
+//BFS를 활용하였지만 DFS로도 풀어보기 
+void BFS() {
+
+  int virusMap[MAX][MAX];
+
+  for(int y=0; y<N; y++) {
+    for(int x=0; x<M; x++) {
+      
+      //바이러스가 퍼진다면 Map이 변화하기 때문에
+      //바이러스가 퍼지기전 즉, 벽이 3개 세워진 Map을 복사해준다.
+      virusMap[y][x] = Map[y][x];
+    }
+  }
+
+  //큐 만들기 함수 이름 까먹지 말자
+  queue<pair<int,int>> q;  
+
+  for(int y=0; y<N; y++) {
+    for(int x=0; x<M; x++) {
+      if(virusMap[y][x]==2) {
+      
+        //push
+        //함수 제발 까먹지 말자
+        q.push(make_pair(y, x));
+      }
+    }
+  }
+
+  while(!q.empty()) {
+    //큐 꺼내기 
+    int x = q.front().second;
+    int y = q.front().first;
+    //pop해주는거 까먹지 말기 
+    q.pop();
+
+    //다음으로 이동할 네가지 방향 구해주기
+    for(int i=0; i<4; i++) {
+      int nextX = directX[i] + x;
+      int nextY = directY[i] + y;
+
+      //배열의 유효성 check
+      if(nextX<0 || nextY<0 || nextX>=M || nextY>=N) {
+        continue;
+      }
+
+      if(virusMap[nextY][nextX]==0) {
+          q.push(make_pair(nextY,nextX));
+          virusMap[nextY][nextX] = 2;
+      }      
+    }
+  }
+
+  int size=0;
+
+  for(int y=0; y<N; y++) {
+    for(int x=0; x<M; x++) {
+      if(virusMap[y][x]==0) {
+        size++;
+      }
+    }
+  }
+  
+  //최대 안전영역을 갱신해준다.
+  if(maxSize<size) {
+    maxSize=size;
+  }
+}
+
+//재귀함수를 이용하여 3개의 벽을 세워준다.
+void solve(int cnt) {
+  if(cnt==3) {
+    BFS();
+    
+    //재귀함수 특성상 꼭 return 해주기  
+    return;
+  }
+  for(int y=0; y<N; y++) {
+    for(int x=0; x<M; x++) {
+      if(Map[y][x]==0) {
+        Map[y][x] = 1;
+        
+        //순열을 이용하였지만 조합으로도 풀어보기 
+        solve(cnt+1);
+        
+        //백트래킹 특성
+        Map[y][x]=0;
+      }
+    }
+  } 
+}
+```
