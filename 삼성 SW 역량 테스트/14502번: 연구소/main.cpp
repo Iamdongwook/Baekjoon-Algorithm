@@ -1,3 +1,4 @@
+//dfs+bfs
 #include<iostream>
 #include<algorithm>
 #include<queue>
@@ -110,4 +111,114 @@ int main(void) {
     cout << maxSize;
     
     return 0;
+}
+
+//dfs로만 풀기 
+#include<iostream>
+#include<algorithm>
+
+#define MAX 8
+
+using namespace std;
+
+int N,M;
+int maxSize=0;
+int Map[MAX][MAX];
+int virusMap[MAX][MAX];
+int visited[MAX][MAX];
+
+//좌 우 상 하 
+int directX[] = {-1,1,0,0};
+int directY[] = {0,0,-1,1};
+
+void dfs(int y, int x) {
+
+  //방문표시 
+  visited[y][x] = 1;
+  
+  for(int i=0; i<4; i++) {
+    int nextX = directX[i] + x;
+    int nextY = directY[i] + y;
+
+    if(nextX<0 || nextY<0 || nextX>=M || nextY>=N) {
+      continue;
+    }
+
+    if(!visited[nextY][nextX]&&!virusMap[nextY][nextX]) {
+      virusMap[nextY][nextX]=2;
+      dfs(nextY, nextX);
+    } 
+  }
+}
+
+//방문표시 초기화 
+void init() {
+  for(int y=0; y<N; y++) {
+    for(int x=0; x<M; x++) {
+      visited[y][x]=0;
+    }
+  }
+}
+
+void makeWall(int cnt) {
+  if(cnt==3) {
+    //맵 복사하기 
+    for(int y=0; y<N; y++) {
+      for(int x=0; x<M; x++) {
+        virusMap[y][x] = Map[y][x];
+      }
+    }
+
+    for(int y=0; y<N; y++) {
+      for(int x=0; x<M; x++) {
+        if(virusMap[y][x]==2) {
+          dfs(y,x);
+        }
+      }
+    }
+
+    //visited[][] 초기화 
+    init();
+
+    int size = 0;
+
+    for(int y=0; y<N; y++) {
+      for(int x=0; x<M; x++) {
+        if(virusMap[y][x]==0) {
+          size++;
+        }
+      }
+    }
+
+    //안정 영역 갱신 
+    maxSize = max(maxSize,size);
+
+    return;
+  }
+  for(int y=0; y<N; y++) {
+    for(int x=0; x<M; x++) {
+      if(!Map[y][x]) {
+        Map[y][x]=1;
+        makeWall(cnt+1);
+        Map[y][x]=0;
+      }
+    }
+  }
+}
+
+int main() {
+
+  cin >> N >> M;
+
+  for(int y=0; y<N; y++) {
+    for(int x=0; x<M; x++) {
+      cin >> Map[y][x];
+    }
+  }
+
+  makeWall(0);
+
+  cout << maxSize;
+
+  return 0;
 }
