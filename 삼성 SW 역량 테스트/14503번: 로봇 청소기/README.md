@@ -46,6 +46,7 @@ d = (d + 3) % 4;
 * 왼쪽 방향에 청소하지 않은 공간이 있다면 그 방향으로 회전 후 한칸 전진한다.
 ```c++
 int nextStep = 0;
+
 for(int i=0; i<4; i++) {
   d = (d + 3) % 4;
   int nextX = directX[d] + c;
@@ -79,6 +80,7 @@ if(nextStep==1) {
 * 이후 현재 위치에 대입해준다.
 ```c++
 int backStep = (d + 2) % 4;
+
 c = directX[backStep] + c;
 r = directY[backStep] + r;
 ```
