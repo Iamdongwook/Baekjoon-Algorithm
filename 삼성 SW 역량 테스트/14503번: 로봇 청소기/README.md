@@ -45,7 +45,7 @@ d = (d + 3) % 4;
 ```
 * 왼쪽 방향에 청소하지 않은 공간이 있다면 그 방향으로 회전 후 한칸 전진한다.
 ```c++
-int nextStep = 0;
+    int nextStep = 0;
     for(int i=0; i<4; i++) {
       d = (d + 3) % 4;
       int nextX = directX[d] + c;
@@ -64,13 +64,13 @@ int nextStep = 0;
 if(Map[r][c]==0) {
       Map[r][c]=2;
       clean++;
-    }
+}
 ```
 * 조건문으로 nextStep 변수에 1을 확인해주고 continue문으로 다시 while문으로 들어가게 해준다.
 ```c++
 if(nextStep==1) {
         continue;
-    }
+}
 ```
 * 4방향 모두 확인 후 청소할 공간이 없다면(nextStep==0) 후진을 해야한다. 
 * 후진을 할때 생각해야할 부분은 현재 바라보는 방향에서 180도 뒤로 움직이면 된다. 
