@@ -45,19 +45,19 @@ d = (d + 3) % 4;
 ```
 * 왼쪽 방향에 청소하지 않은 공간이 있다면 그 방향으로 회전 후 한칸 전진한다.
 ```c++
-    int nextStep = 0;
-    for(int i=0; i<4; i++) {
-      d = (d + 3) % 4;
-      int nextX = directX[d] + c;
-      int nextY = directY[d] + r;
+int nextStep = 0;
+for(int i=0; i<4; i++) {
+  d = (d + 3) % 4;
+  int nextX = directX[d] + c;
+  int nextY = directY[d] + r;
 
-      if(Map[nextY][nextX]==0) {
-        c = nextX;
-        r = nextY;
-        nextStep = 1;
-        break;
-      }
-    }
+  if(Map[nextY][nextX]==0) {
+    c = nextX;
+    r = nextY;
+    nextStep = 1;
+    break;
+  }
+}
 ```
 * 현재 위치를 청소하고 청소칸의 수를 늘려준다.
 ```c++
