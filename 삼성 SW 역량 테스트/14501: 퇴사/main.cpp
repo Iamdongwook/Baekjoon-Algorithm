@@ -7,7 +7,6 @@ int money[16];
 int ret;
 int N; 
  
- 
 void dfs(int today, int sum) {
  
     ret = max(ret, sum);
