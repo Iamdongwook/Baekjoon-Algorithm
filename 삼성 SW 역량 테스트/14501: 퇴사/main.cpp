@@ -12,7 +12,7 @@ void dfs(int today, int sum) {
  
     ret = max(ret, sum);
  
-    //N+1 이 되는날 퇴사를 한다.
+    //N+1이 되는날 퇴사를 한다.
     //함수 종료 
     if (today == N + 1) {
         return;
@@ -20,8 +20,8 @@ void dfs(int today, int sum) {
 
     //두가지 경우가 있다.
     //이해가 안가서 한참 헤멨다.
-    //아직 까지 <= 부호를 모르겠음. 단순히 < 아님? 휴......
- 
+    //N+1이 되는날 퇴사를 해야하기 때문에 N번째 날까지 일을하는것이 MAX이다.
+    //따라서 조건식을 정할때 <= N + 1 뜻은 최대 N까지 일하는것을 의미한다. 
     if (today + day[today] <= N + 1) { // 일을 함
         dfs(today + day[today], sum + money[today]);
     }
