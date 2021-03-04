@@ -17,7 +17,7 @@ void solution()
         for(int i = 0; i < target.length(); i++)
             if(target[i] == '6' && target[i+1] == '6' && target[i+2] == '6')
             {
-                series++;
+                series++
                 break;
             }
 
